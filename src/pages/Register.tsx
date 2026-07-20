@@ -28,8 +28,8 @@ export function Register() {
 
     setIsSubmitting(true);
     try {
-      await register(email, password);
-      navigate("/");
+      const appUser = await register(email, password);
+navigate(appUser.role === "admin" ? "/admin" : "/");
     } catch (err: any) {
       if (err?.code === "auth/email-already-in-use") {
         setError("Ese email ya está registrado.");

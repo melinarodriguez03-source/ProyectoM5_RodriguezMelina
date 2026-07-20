@@ -7,6 +7,8 @@ import { Cart } from "../pages/Cart";
 import { Checkout } from "../pages/Checkout";
 import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
+import { OrderHistory } from "../pages/OrderHistory";
+import { OrderDetail } from "../pages/OrderDetail";
 // import { NewProduct } from "../pages/admin/NewProduct";
 // import { EditProduct } from "../pages/admin/EditProduct";
 
@@ -26,8 +28,8 @@ export function AppRouter() {
         {/* Rutas protegidas: cualquier usuario logueado (customer o admin) */}
         <Route element={<ProtectedRoute />}>
           <Route path="/checkout" element={<Checkout />} />
-          {/* <Route path="/orders" element={<OrderHistory />} /> */}
-          {/* <Route path="/orders/:id" element={<OrderDetail />} /> */}
+          {<Route path="/orders" element={<OrderHistory />} />}
+          {<Route path="/orders/:id" element={<OrderDetail />} /> }
         </Route>
 
         {/* Rutas protegidas: solo admin */}

@@ -13,8 +13,8 @@ import type { AppUser } from "../types/user";
 interface AuthContextValue {
   user: AppUser | null;
   loading: boolean;
-  register: (email: string, password: string) => Promise<void>;
-  login: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string) => Promise<AppUser>;
+  login: (email: string, password: string) => Promise<AppUser>;
   loginGoogle: () => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -41,14 +41,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return unsubscribe;
   }, []);
 
-  const register = async (email: string, password: string) => {
+  const register = async (email: string, password: string): Promise<AppUser> => {
     const appUser = await registerWithEmail(email, password);
     setUser(appUser);
+    return appUser;
   };
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string): Promise<AppUser> => {
     const appUser = await loginWithEmail(email, password);
     setUser(appUser);
+    return appUser;
   };
 
   const loginGoogle = async () => {

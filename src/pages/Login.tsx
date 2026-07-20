@@ -16,8 +16,8 @@ export function Login() {
     setError(null);
     setIsSubmitting(true);
     try {
-      await login(email, password);
-      navigate("/");
+     const appUser = await login(email, password);
+     navigate(appUser.role === "admin" ? "/admin" : "/");
     } catch {
       setError("Email o contraseña incorrectos.");
     } finally {
