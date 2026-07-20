@@ -5,8 +5,8 @@ import { ProductList } from "../pages/ProductList";
 import { ProductDetail } from "../pages/ProductDetail";
 import { Cart } from "../pages/Cart";
 import { Checkout } from "../pages/Checkout";
-// import { Login } from "../pages/Login";
-// import { Register } from "../pages/Register";
+import { Login } from "../pages/Login";
+import { Register } from "../pages/Register";
 // import { NewProduct } from "../pages/admin/NewProduct";
 // import { EditProduct } from "../pages/admin/EditProduct";
 
@@ -20,8 +20,8 @@ export function AppRouter() {
         <Route path="/products" element={<ProductList />} />
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
-        {/* <Route path="/login" element={<Login />} /> */}
-        {/* <Route path="/register" element={<Register />} /> */}
+        {<Route path="/login" element={<Login />} />}
+        {<Route path="/register" element={<Register />} /> }
 
         {/* Rutas protegidas: cualquier usuario logueado (customer o admin) */}
         <Route element={<ProtectedRoute />}>
