@@ -9,8 +9,9 @@ import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 import { OrderHistory } from "../pages/OrderHistory";
 import { OrderDetail } from "../pages/OrderDetail";
-// import { NewProduct } from "../pages/admin/NewProduct";
-// import { EditProduct } from "../pages/admin/EditProduct";
+import { AdminProducts } from "../pages/admin/AdminProducts";
+import { NewProduct } from "../pages/admin/NewProduct";
+import { EditProduct } from "../pages/admin/EditProduct";
 
 export function AppRouter() {
   return (
@@ -34,9 +35,9 @@ export function AppRouter() {
 
         {/* Rutas protegidas: solo admin */}
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-          {/* <Route path="/admin/products/new" element={<NewProduct />} /> */}
-          {/* <Route path="/admin/products/:id/edit" element={<EditProduct />} /> */}
-          {/* <Route path="/admin/orders" element={<AdminOrders />} /> */}
+        <Route path="/admin/products" element={<AdminProducts />} />
+        <Route path="/admin/products/new" element={<NewProduct />} />
+        <Route path="/admin/products/:id/edit" element={<EditProduct />} />
         </Route>
       </Routes>
     </>
