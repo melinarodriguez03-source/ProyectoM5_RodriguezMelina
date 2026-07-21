@@ -19,7 +19,7 @@ export function ProductDetail() {
 
     async function fetchProduct() {
       try {
-        const data = await getProductById(id);
+        const data = await getProductById(id!);
         if (!data) {
           setError("Producto no encontrado");
           return;

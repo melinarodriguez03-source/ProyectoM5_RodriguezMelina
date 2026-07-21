@@ -103,15 +103,19 @@ export function ProductForm({ initialData, onSubmit, isSubmitting }: ProductForm
           Imagen
         </label>
         <input
-          id="image"
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            // acá después conectamos con el upload a S3 (presigned URL)
-            console.log(e.target.files?.[0]);
-          }}
-          className="w-full border rounded px-3 py-2"
-        />
+       id="image"
+       type="file"
+       accept="image/*"
+       onChange={(e) => {
+       const file = e.target.files?.[0];
+       if (file) {
+      // Preview temporal en el navegador. Se reemplaza por la URL real de S3
+      // cuando conectemos el flujo de Presigned URL.
+      setImage(URL.createObjectURL(file));
+       }
+       }}
+       className="w-full border rounded px-3 py-2"
+       />
         {image && (
           <img src={image} alt="preview" className="mt-2 w-32 h-32 object-cover rounded" />
         )}
