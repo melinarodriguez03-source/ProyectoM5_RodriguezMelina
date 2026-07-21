@@ -12,6 +12,7 @@ import { OrderDetail } from "../pages/OrderDetail";
 import { AdminProducts } from "../pages/admin/AdminProducts";
 import { NewProduct } from "../pages/admin/NewProduct";
 import { EditProduct } from "../pages/admin/EditProduct";
+import { AdminOrders } from "../pages/admin/AdminOrders";
 
 export function AppRouter() {
   return (
@@ -38,6 +39,7 @@ export function AppRouter() {
         <Route path="/admin/products" element={<AdminProducts />} />
         <Route path="/admin/products/new" element={<NewProduct />} />
         <Route path="/admin/products/:id/edit" element={<EditProduct />} />
+        <Route path="/admin/orders" element={<AdminOrders />} />
         </Route>
       </Routes>
     </>
