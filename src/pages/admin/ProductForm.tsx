@@ -1,8 +1,9 @@
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ChangeEvent } from "react";
 import { CATEGORIES, type Category, type ProductInput, type Product } from "../../types/product";
+import { uploadImageToS3 } from "../../services/uploadService";
 
 interface ProductFormProps {
-  initialData?: Product;             // si viene, es edición; si no, es creación
+  initialData?: Product;
   onSubmit: (data: ProductInput) => void;
   isSubmitting?: boolean;
 }
@@ -14,6 +15,24 @@ export function ProductForm({ initialData, onSubmit, isSubmitting }: ProductForm
   const [stock, setStock] = useState(initialData?.stock ?? 0);
   const [category, setCategory] = useState<Category>(initialData?.category ?? CATEGORIES[0]);
   const [image, setImage] = useState(initialData?.image ?? "");
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const publicUrl = await uploadImageToS3(file);
+      setImage(publicUrl);
+    } catch {
+      setUploadError("No se pudo subir la imagen. Intentá de nuevo.");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -103,30 +122,38 @@ export function ProductForm({ initialData, onSubmit, isSubmitting }: ProductForm
           Imagen
         </label>
         <input
-       id="image"
-       type="file"
-       accept="image/*"
-       onChange={(e) => {
-       const file = e.target.files?.[0];
-       if (file) {
-      // Preview temporal en el navegador. Se reemplaza por la URL real de S3
-      // cuando conectemos el flujo de Presigned URL.
-      setImage(URL.createObjectURL(file));
-       }
-       }}
-       className="w-full border rounded px-3 py-2"
-       />
-        {image && (
-          <img src={image} alt="preview" className="mt-2 w-32 h-32 object-cover rounded" />
+          id="image"
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          disabled={uploading}
+          className="w-full border rounded px-3 py-2"
+        />
+        {uploading && (
+          <p className="text-sm text-gray-500 mt-1">Subiendo imagen...</p>
+        )}
+        {uploadError && (
+          <p className="text-sm text-red-600 mt-1">{uploadError}</p>
+        )}
+        {image && !uploading && (
+          <img
+            src={image}
+            alt="preview"
+            className="mt-2 w-32 h-32 object-cover rounded"
+          />
         )}
       </div>
 
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || uploading}
         className="bg-blue-600 text-white rounded px-4 py-2 disabled:opacity-50"
       >
-        {isSubmitting ? "Guardando..." : initialData ? "Actualizar producto" : "Crear producto"}
+        {isSubmitting
+          ? "Guardando..."
+          : initialData
+          ? "Actualizar producto"
+          : "Crear producto"}
       </button>
     </form>
   );
