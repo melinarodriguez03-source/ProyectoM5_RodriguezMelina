@@ -1,1 +1,37 @@
 @import "tailwindcss";
+@import "tailwindcss";
+
+:root {
+  --bg: #F4F6FF;
+  --surface: #FFFFFF;
+  --text: #0B1120;
+  --text-muted: #5B6478;
+  --border: #E1E5F5;
+  --primary: #2E5EFF;
+  --primary-hover: #1E42D6;
+  --accent: #FF3D81;
+  --success: #00B896;
+}
+
+.dark {
+  --bg: #0B1120;
+  --surface: #141B2E;
+  --text: #F4F6FF;
+  --text-muted: #8A93AC;
+  --border: #232C45;
+  --primary: #5B7FFF;
+  --primary-hover: #7C9AFF;
+  --accent: #FF6099;
+  --success: #22D3AC;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
