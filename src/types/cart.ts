@@ -6,7 +6,7 @@ export interface CartItem {
   image: string;
   price: number;
   quantity: number;
-  stock: number; // para no dejar agregar más de lo disponible
+  stock: number; 
 }
 
 export interface CartState {

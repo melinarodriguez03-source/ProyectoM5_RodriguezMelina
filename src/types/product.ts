@@ -16,10 +16,10 @@ export interface Product {
   category: Category;
 }
 
-// Para crear un producto nuevo (el id lo genera Firestore)
+
 export type ProductInput = Omit<Product, "id">;
 
-// Para editar un producto (campos opcionales)
+
 export type ProductUpdate = Partial<ProductInput>;
 
 export const CATEGORIES: Category[] = [

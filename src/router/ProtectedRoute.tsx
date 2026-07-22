@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import type { Role } from "../types/user";
 
 interface ProtectedRouteProps {
-  allowedRoles?: Role[]; // si no se pasa, solo exige estar logueado (cualquier rol)
+  allowedRoles?: Role[]; 
 }
 
 export function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {

@@ -12,9 +12,7 @@ import type { AppUser, Role } from "../types/user";
 
 const USERS_COLLECTION = "users";
 
-/**
- * Trae el perfil (rol incluido) desde Firestore. Si no existe, lo crea con rol "customer".
- */
+
 export async function getOrCreateUserProfile(firebaseUser: User): Promise<AppUser> {
   const ref = doc(db, USERS_COLLECTION, firebaseUser.uid);
   const snap = await getDoc(ref);
@@ -33,7 +31,7 @@ export async function getOrCreateUserProfile(firebaseUser: User): Promise<AppUse
     uid: firebaseUser.uid,
     email: firebaseUser.email ?? "",
     displayName: firebaseUser.displayName,
-    role: "customer", // todo usuario nuevo arranca como customer
+    role: "customer", 
   };
 
   await setDoc(ref, { email: newProfile.email, role: newProfile.role });

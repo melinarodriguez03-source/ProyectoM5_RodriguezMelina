@@ -54,7 +54,6 @@ describe("useCart", () => {
   });
 
   it("lanza error si se usa fuera del CartProvider", () => {
-    // Silenciamos el error esperado en consola durante este test
     const consoleError = console.error;
     console.error = () => {};
 
