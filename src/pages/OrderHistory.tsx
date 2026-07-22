@@ -31,9 +31,10 @@ export function OrderHistory() {
       try {
         const data = await getOrdersByUser(user!.uid);
         setOrders(data);
-      } catch {
-        setError("No se pudieron cargar tus órdenes.");
-      } finally {
+      } catch (err) {
+  console.error("Error real:", err);
+  setError("No se pudieron cargar tus órdenes.");
+} finally {
         setLoading(false);
       }
     }
